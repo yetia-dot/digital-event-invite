@@ -1,8 +1,10 @@
 'use client'
 
+import Link from 'next/link'
 import { useMemo, useState, useTransition } from 'react'
 import { createEventWithAgendaAndWishlist } from './actions'
 import type { CreateEventFormValues } from './actions'
+
 
 function uid(prefix: string) {
   return `${prefix}_${Math.random().toString(16).slice(2)}_${Date.now()}`
@@ -349,12 +351,13 @@ export default function NewAdminEventPage() {
             </section>
 
             <div className="flex items-center justify-between gap-4 pt-2">
-              <a
+              <Link
                 href="/admin/events"
                 className="text-sm text-gray-600 hover:text-gray-900 transition"
               >
                 Cancel
-              </a>
+              </Link>
+
 
               <button
                 type="submit"
