@@ -58,7 +58,7 @@ export default function RsvpForm({ guestId, guestName, token }: Props) {
     return (
       <div className="space-y-3">
         <p className="text-gray-600">
-          We'll miss you! Would you like to leave a message? 💌
+          We&apos;ll miss you! Would you like to leave a message? 💌
         </p>
         <textarea
           className="w-full border border-gray-200 rounded-xl p-3 text-gray-700 
@@ -101,7 +101,7 @@ export default function RsvpForm({ guestId, guestName, token }: Props) {
           className="flex-1 bg-green-500 hover:bg-green-600 disabled:opacity-50 
                      text-white font-medium py-3 rounded-xl transition"
         >
-          {loading ? 'Saving...' : "Yes, I'll be there! 🎉"}
+          {loading ? 'Saving...' : 'Yes, I&apos;ll be there! 🎉'}
         </button>
         <button
           onClick={handleDeclined}
@@ -109,7 +109,7 @@ export default function RsvpForm({ guestId, guestName, token }: Props) {
           className="flex-1 bg-gray-100 hover:bg-gray-200 disabled:opacity-50 
                      text-gray-700 font-medium py-3 rounded-xl transition"
         >
-          Sorry, I can't make it
+          Sorry, I can&apos;t make it
         </button>
       </div>
     </div>

@@ -59,7 +59,7 @@ export default async function InvitePage({ params }: PageProps) {
         {/* Header */}
         <div className="text-center space-y-2">
           <p className="text-amber-600 font-medium tracking-wide uppercase text-sm">
-            You're invited
+            You&apos;re invited
           </p>
           <h1 className="text-4xl font-bold text-gray-800">{event?.title}</h1>
           <p className="text-gray-500 text-lg">Dear {guest.name},</p>
@@ -70,9 +70,9 @@ export default async function InvitePage({ params }: PageProps) {
         <div className="bg-white rounded-2xl p-6 shadow-sm space-y-3">
           <h2 className="font-semibold text-gray-700 text-lg">Event Details</h2>
           <div className="text-gray-600 space-y-1">
-            <p>📅 {new Date(event?.date).toLocaleDateString('en-US', {
+          {new Date(event?.date).toLocaleDateString('en-US', {
               weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-            })}</p>
+            })}
             <p>🕒 {new Date(event?.date).toLocaleTimeString('en-US', {
               hour: '2-digit', minute: '2-digit'
             })}</p>
@@ -139,8 +139,8 @@ export default async function InvitePage({ params }: PageProps) {
 <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
   <h2 className="font-semibold text-gray-700 text-lg">Will you attend?</h2>
   {existingRsvp ? (
-    <p className="text-green-600 font-medium">
-      ✅ You've already responded — thank you, {guest.name}!
+          <p className="text-green-600 font-medium">
+      ✅ You&apos;ve already responded — thank you, {guest.name}!
     </p>
   ) : (
     <RsvpForm
