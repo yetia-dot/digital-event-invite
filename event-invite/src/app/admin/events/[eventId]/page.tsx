@@ -1,5 +1,25 @@
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
+import GuestsUi from '../new/guestsUi'
+
+async function safeCreateGuestsWithInviteTokens(args: {
+  eventId: string
+  names: string[]
+}) {
+  // This page is a Server Component; GuestsUi is a Client Component.
+  // Passing functions is not allowed. GuestsUi expects a server action
+  // reference, so we provide a safe fallback when service-role env vars
+  // are missing.
+  return {
+    success: false as const,
+    error: 'Invite link creation is not configured. SUPABASE_SERVICE_ROLE_KEY is missing.',
+  }
+}
+
+
+
+
+
 
 function StatCard({
   label,
@@ -22,14 +42,14 @@ function StatCard({
           : 'bg-gray-50 text-gray-800 border-gray-100'
 
   return (
-    <div
-      className={`rounded-2xl border ${toneClasses} p-5 flex flex-col gap-2`}>
+    <div className={`rounded-2xl border ${toneClasses} p-5 flex flex-col gap-2`}>
       <div className="text-sm font-medium text-gray-600">{label}</div>
       <div className="text-3xl font-bold leading-none">{value}</div>
       {hint ? <div className="text-xs text-gray-600">{hint}</div> : null}
     </div>
   )
 }
+
 
 type PageProps = {
   params: Promise<{ eventId: string }>
@@ -72,21 +92,36 @@ export default async function AdminEventDetailPage({ params }: PageProps) {
     .select('id')
     .eq('event_id', eventId)
 
-
   const guestIds = guestRows?.map((g) => g.id).filter(Boolean) ?? []
 
-  const { count: attendingCount, error: attendingCountError } = await supabase
-    .from('rsvps')
-    .select('id', { count: 'exact', head: true })
-    .eq('attending', true)
-    .in('guest_id', guestIds)
+  let attendingCount = 0
+  let notAttendingCount = 0
+  let attendingCountError: string | undefined
+  let notAttendingCountError: string | undefined
 
-  const { count: notAttendingCount, error: notAttendingCountError } = await supabase
-    .from('rsvps')
-    .select('id', { count: 'exact', head: true })
-    .eq('attending', false)
-    .in('guest_id', guestIds)
+  // Avoid `.in('guest_id', [])` which can error depending on PostgREST/Supabase behavior.
+  if (guestIds.length) {
+    const attendingRes = await supabase
+      .from('rsvps')
+      .select('id', { count: 'exact', head: true })
+      .eq('attending', true)
+      .in('guest_id', guestIds)
 
+    attendingCount = attendingRes.count ?? 0
+    attendingCountError = attendingRes.error?.message
+
+    const notAttendingRes = await supabase
+      .from('rsvps')
+      .select('id', { count: 'exact', head: true })
+      .eq('attending', false)
+      .in('guest_id', guestIds)
+
+    notAttendingCount = notAttendingRes.count ?? 0
+    notAttendingCountError = notAttendingRes.error?.message
+  } else {
+    attendingCountError = undefined
+    notAttendingCountError = undefined
+  }
 
   const { count: reservedGiftsCount, error: reservedGiftsCountError } = await supabase
     .from('wishlist_items')
@@ -95,15 +130,17 @@ export default async function AdminEventDetailPage({ params }: PageProps) {
     .eq('is_reserved', true)
 
   const guestsSent = guestsCount ?? 0
-  const attending = attendingCount ?? 0
-  const notAttending = notAttendingCount ?? 0
+  const attending = attendingCount
+  const notAttending = notAttendingCount
   const giftsReserved = reservedGiftsCount ?? 0
+
 
   const showWarning =
     !!guestsCountError ||
     !!attendingCountError ||
     !!notAttendingCountError ||
     !!reservedGiftsCountError
+
 
   return (
     <main className="min-h-screen bg-amber-50 py-10 px-4">
@@ -150,12 +187,14 @@ export default async function AdminEventDetailPage({ params }: PageProps) {
             value={guestsSent}
             hint="Total guests created for this event"
           />
+
           <StatCard
             tone="green"
             label="Accepted (will attend)"
             value={attending}
             hint="RSVPs with attending = true"
           />
+
           <StatCard
             tone="red"
             label="Can’t make it"
@@ -169,8 +208,34 @@ export default async function AdminEventDetailPage({ params }: PageProps) {
             hint="Wishlist items reserved"
           />
         </section>
+
+        <div className="bg-white rounded-2xl shadow-sm p-6">
+          {/*
+            GuestsUi is a Client Component and it expects a server action.
+            Until SUPABASE_SERVICE_ROLE_KEY is configured, the server action can't
+            be constructed without crashing this page.
+
+            To avoid 500s, we intentionally hide this UI for now.
+          */}
+          {process.env.SUPABASE_SERVICE_ROLE_KEY ? (
+            <GuestsUi
+              eventId={eventId}
+              siteUrl={process.env.NEXT_PUBLIC_SITE_URL ?? ''}
+              createGuestsWithInviteTokens={safeCreateGuestsWithInviteTokens}
+            />
+          ) : (
+            <div className="text-sm text-amber-900 bg-amber-50 border border-amber-100 rounded-2xl p-4">
+              Invite link creation is disabled because <span className="font-semibold">SUPABASE_SERVICE_ROLE_KEY</span> is missing.
+              <div className="text-xs mt-2 text-amber-800">
+                Add it to your server environment (e.g. <code>.env.local</code>) to enable guest creation.
+              </div>
+            </div>
+          )}
+        </div>
+
       </div>
     </main>
+
   )
 }
 

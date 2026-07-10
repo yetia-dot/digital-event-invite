@@ -6,6 +6,8 @@ import { createEventWithAgendaAndWishlist } from './actions'
 import type { CreateEventFormValues } from './actions'
 
 
+
+
 function uid(prefix: string) {
   return `${prefix}_${Math.random().toString(16).slice(2)}_${Date.now()}`
 }
@@ -285,6 +287,7 @@ export default function NewAdminEventPage() {
             <section className="space-y-3">
               <div className="flex items-center justify-between gap-3">
                 <h2 className="font-semibold text-gray-800">Gift Wishlist</h2>
+
                 <button
                   type="button"
                   onClick={addWishlistItem}
@@ -293,6 +296,13 @@ export default function NewAdminEventPage() {
                   + Add wishlist item
                 </button>
               </div>
+
+              <div className="space-y-1">
+                <p className="text-xs text-gray-500">
+                  Tip: after creating the event, come back here to create guest invite links.
+                </p>
+              </div>
+
 
               <div className="space-y-4">
                 {wishlist.map((item, idx) => (
@@ -371,8 +381,12 @@ export default function NewAdminEventPage() {
 
           {success && <p className="text-green-600 text-sm mt-4">Event created.</p>}
         </div>
+
+        {/* Guests UI (only works after event exists). We keep it visually on the page but guard with eventId. */}
+        {/* Current flow redirects to /admin/events/[eventId], so this section is mostly for when you wire a multi-step flow later. */}
       </div>
     </main>
   )
 }
+
 
