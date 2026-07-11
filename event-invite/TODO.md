@@ -12,4 +12,11 @@
   - [x] Implement RSVP flow: click RSVP → ask name + number → confirm coming → reveal exact Google Maps location link.
   - [x] Update palette variables in `src/app/globals.css` (same variable names; new values per spec).
 
+- [ ] Landing page UI updates:
+  - [x] Reduce excess spacing between top/headers/hero
+  - [x] Navbar transparency + remove left element + center nav buttons
+  - [x] Update hero text and celebration details (Sunday July 19, 2026 + Summit near Cambridge Academy)
+  - [x] Replace “RSVP & location” with Yes/No modals (Yes submits form; No shows message + optional warm wish)
+  - [x] Convert “What to expect” section into horizontal image carousels (picsum images)
+
 
