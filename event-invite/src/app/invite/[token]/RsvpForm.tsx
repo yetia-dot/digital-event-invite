@@ -56,33 +56,49 @@ export default function RsvpForm({ guestId, guestName, token }: Props) {
 
   if (step === 'declined') {
     return (
-      <div className="space-y-3">
-        <p className="text-gray-600">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <p style={{ color: 'var(--muted-dark)', lineHeight: 1.7, fontWeight: 600 }}>
           We&apos;ll miss you! Would you like to leave a message? 💌
         </p>
+
         <textarea
-          className="w-full border border-gray-200 rounded-xl p-3 text-gray-700 
-                     focus:outline-none focus:ring-2 focus:ring-amber-300 resize-none"
+          className="w-full resize-none"
           rows={4}
           placeholder="Write your congratulatory message here..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          style={{
+            border: '1px solid rgba(18,24,27,0.18)',
+            background: '#fff',
+            borderRadius: 2,
+            padding: '11px 13px',
+            color: 'var(--ink)',
+            fontFamily: "'Inter',sans-serif",
+            fontSize: 14,
+            outline: 'none',
+            minHeight: 110,
+          }}
         />
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        <div className="flex gap-3">
+
+        {error && (
+          <p style={{ color: 'var(--maroon)', fontWeight: 700, fontSize: 13 }}>{error}</p>
+        )}
+
+        <div style={{ display: 'flex', gap: 12 }}>
           <button
             onClick={() => handleMessageSubmit(false)}
             disabled={loading || !message.trim()}
-            className="flex-1 bg-amber-400 hover:bg-amber-500 disabled:opacity-50 
-                       text-white font-medium py-3 rounded-xl transition"
+            className="btn"
+            style={{ flex: 1, justifyContent: 'center' }}
           >
             {loading ? 'Sending...' : 'Send Message'}
           </button>
+
           <button
             onClick={() => handleMessageSubmit(true)}
             disabled={loading}
-            className="flex-1 bg-gray-100 hover:bg-gray-200 disabled:opacity-50
-                       text-gray-600 font-medium py-3 rounded-xl transition"
+            className="btn ghost"
+            style={{ flex: 1, justifyContent: 'center' }}
           >
             Skip
           </button>
@@ -92,22 +108,24 @@ export default function RsvpForm({ guestId, guestName, token }: Props) {
   }
 
   return (
-    <div className="space-y-3">
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-      <div className="flex gap-3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {error && <p style={{ color: 'var(--maroon)', fontWeight: 700, fontSize: 13 }}>{error}</p>}
+
+      <div style={{ display: 'flex', gap: 12 }}>
         <button
           onClick={handleAttending}
           disabled={loading}
-          className="flex-1 bg-green-500 hover:bg-green-600 disabled:opacity-50 
-                     text-white font-medium py-3 rounded-xl transition"
+          className="btn"
+          style={{ flex: 1, justifyContent: 'center' }}
         >
           {loading ? 'Saving...' : 'Yes, I&apos;ll be there! 🎉'}
         </button>
+
         <button
           onClick={handleDeclined}
           disabled={loading}
-          className="flex-1 bg-gray-100 hover:bg-gray-200 disabled:opacity-50 
-                     text-gray-700 font-medium py-3 rounded-xl transition"
+          className="btn ghost"
+          style={{ flex: 1, justifyContent: 'center' }}
         >
           Sorry, I can&apos;t make it
         </button>
@@ -115,3 +133,5 @@ export default function RsvpForm({ guestId, guestName, token }: Props) {
     </div>
   )
 }
+
+

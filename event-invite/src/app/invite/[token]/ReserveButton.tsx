@@ -26,23 +26,25 @@ export default function ReserveButton({ itemId, token }: Props) {
 
   if (reserved) {
     return (
-      <span className="text-xs bg-green-100 text-green-600 px-3 py-1 rounded-full">
+      <span className="pill reserved">
         Reserved ✓
       </span>
     )
   }
 
   return (
-    <div className="flex flex-col items-end gap-1">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
       <button
         onClick={handleReserve}
         disabled={loading}
-        className="text-xs bg-amber-400 hover:bg-amber-500 disabled:opacity-50 
-                   text-white px-3 py-1 rounded-full transition"
+        className="btn"
+        style={{ padding: '10px 18px', fontSize: 13, background: 'var(--maroon)', color: 'var(--ivory)' }}
       >
         {loading ? '...' : 'Reserve'}
       </button>
-      {error && <p className="text-red-400 text-xs">{error}</p>}
+      {error ? (
+        <p style={{ color: 'var(--maroon)', fontWeight: 700, fontSize: 12 }}>{error}</p>
+      ) : null}
     </div>
   )
 }
