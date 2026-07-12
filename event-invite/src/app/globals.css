@@ -174,15 +174,15 @@ body {
 @media (max-width:640px){.form-row{grid-template-columns:1fr;}}
 
 .btn{
-  border:none;border-radius:999px;padding:14px 28px;font-weight:700;font-size:14px;
-  background:var(--maroon);color:var(--ivory);
+  border:none;border-radius:999px;padding:8px 12px;font-weight:700;font-size:14px;color:var(--ivory);
   transition:transform .2s var(--ease), background .2s;
   display:inline-flex;align-items:center;gap:8px;
   text-decoration:none;
 }
-.btn:hover{background:var(--maroon-light);transform:translateY(-1px);}
+.btn:hover{background:var(--muted-light);transform:translateY(-1px);}
 .btn:disabled{background:#b9b2a5;cursor:not-allowed;transform:none;}
-.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink);}
+.btn.ghost{background:transparent;color:var(--ink);}
+.btn.ghost:hover{background:white;}
 .btn.block{width:100%;justify-content:center;}
 
 .pill{

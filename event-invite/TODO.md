@@ -1,22 +1,11 @@
-# event-invite TODO
+# TODO
 
-- [x] Port graduation theme CSS into `event-invite/src/app/globals.css` (tokens + hero/section/card/button/form classes).
-- [x] Refactor guest invite UI in `event-invite/src/app/invite/[token]/page.tsx` to use the new classes (hero + sections + timeline + wishlist + RSVP card).
-- [x] Update `event-invite/src/app/invite/[token]/RsvpForm.tsx` styling to match the template button/input style.
-- [x] Update `event-invite/src/app/invite/[token]/ReserveButton.tsx` styling to match the template.
-- [x] Run `npm run dev` in event-invite and visually verify responsiveness + step flows.
+- [x] Update landing page hero UI to match https://www.sergachen.et/sample/bahir-dar-bloom layout
+  - [x] Preserve existing color theme variables and styling tokens
+  - [x] Preserve exact event/occasion details text (heading + date + location)
+- [ ] Adjust `globals.css` with minimal changes only if new layout requires it
+- [x] Run build/lint to ensure no TS/CSS errors
+- [ ] Smoke-verify hero section visually (spacing, typography, button/CTA alignment)
 
-- [ ] Major structural change:
-  - [x] Replace `src/app/page.tsx` token entry UI with a generic landing page (navbar + event details + images + RSVP flow).
-  - [x] Create `/event`, `/portfolio`, `/gifts` pages with the required nav destinations.
-  - [x] Implement RSVP flow: click RSVP → ask name + number → confirm coming → reveal exact Google Maps location link.
-  - [x] Update palette variables in `src/app/globals.css` (same variable names; new values per spec).
-
-- [ ] Landing page UI updates:
-  - [x] Reduce excess spacing between top/headers/hero
-  - [x] Navbar transparency + remove left element + center nav buttons
-  - [x] Update hero text and celebration details (Sunday July 19, 2026 + Summit near Cambridge Academy)
-  - [x] Replace “RSVP & location” with Yes/No modals (Yes submits form; No shows message + optional warm wish)
-  - [x] Convert “What to expect” section into horizontal image carousels (picsum images)
 
 
