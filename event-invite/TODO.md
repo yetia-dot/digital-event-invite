@@ -7,5 +7,9 @@
 - [x] Run build/lint to ensure no TS/CSS errors
 - [ ] Smoke-verify hero section visually (spacing, typography, button/CTA alignment)
 
+- [ ] Implement /gifts page (“gift ideas”) using common Navbar + ecommerce-style wishlist cards
+  - [x] Add bottom-right GiftChatWidget with timed pop-up messages
+  - [x] Add wishlist cards: image, name, price range, Reserve button, Details modal w/ description + links
+  - [ ] Add wishlist cards: image, name, price range, Reserve button, Details modal w/ description + links
 
 
