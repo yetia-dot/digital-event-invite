@@ -49,11 +49,22 @@ export default function GiftChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [isPopupVisible, setIsPopupVisible] = useState(true)
   const [currentText, setCurrentText] = useState('')
+  const [chatHistory, setChatHistory] = useState<string[]>([])
+
+  // Adds extra time between consecutive “notification” messages.
+  // (Base delays are defined per step; we apply an additional offset per step.)
+  const delayExtraPerStepMs = 900
+
 
   useEffect(() => {
     // schedule sequential reveal
-    setIsPopupVisible(true)
-    setCurrentText('')
+    // (useEffect body remains side-effect-only to satisfy eslint rule)
+    setTimeout(() => {
+      setIsPopupVisible(true)
+      setCurrentText('')
+      setChatHistory([])
+    }, 0)
+
 
     // clear any existing timers
     timersRef.current.forEach((t) => window.clearTimeout(t))
@@ -62,12 +73,18 @@ export default function GiftChatWidget() {
     steps.forEach((s, idx) => {
       const timer = window.setTimeout(() => {
         setCurrentText(s.text)
+        setChatHistory((prev) => {
+          // Avoid duplicates if effect re-runs while timers are still firing.
+          if (prev[prev.length - 1] === s.text) return prev
+          return [...prev, s.text]
+        })
+
         if (idx === steps.length - 1) {
           window.setTimeout(() => {
             setIsPopupVisible(false)
           }, 1100)
         }
-      }, s.delayMs)
+      }, s.delayMs + idx * delayExtraPerStepMs)
       timersRef.current.push(timer)
     })
 
@@ -76,6 +93,7 @@ export default function GiftChatWidget() {
       timersRef.current = []
     }
   }, [steps])
+
 
   return (
     <div aria-label="Gift support chat">
@@ -209,11 +227,47 @@ export default function GiftChatWidget() {
             </button>
           </div>
 
-          <div style={{ marginTop: 12, color: 'var(--muted-dark)', lineHeight: 1.6, fontWeight: 700, fontSize: 13 }}>
+          <div
+            style={{
+              marginTop: 12,
+              color: 'var(--muted-dark)',
+              lineHeight: 1.6,
+              fontWeight: 700,
+              fontSize: 13,
+            }}
+          >
             Reserve an item below, then tap <b>Details</b> for links.
-            <div style={{ marginTop: 8 }}>
-              (This is a friendly vibe widget—no real messaging backend.)
-            </div>
+            <div style={{ marginTop: 8 }}>(This is a friendly vibe widget—no real messaging backend.)</div>
+          </div>
+
+          <div
+            style={{
+              marginTop: 12,
+              borderRadius: 12,
+              border: '1px solid rgba(18,24,27,0.08)',
+              background: 'rgba(255,255,255,0.55)',
+              padding: 10,
+              maxHeight: 220,
+              overflowY: 'auto',
+            }}
+            aria-label="Chat messages"
+          >
+            {chatHistory.length === 0 ? (
+              <div style={{ color: 'var(--muted-dark)', fontWeight: 800, fontSize: 13, lineHeight: 1.6 }}>
+                Loading messages...
+              </div>
+            ) : (
+              chatHistory.map((msg, i) => (
+                <div key={`${i}-${msg}`} style={{ marginBottom: 10 }}>
+                  <div style={{ fontSize: 10, fontWeight: 900, color: 'var(--brass-light)', textTransform: 'uppercase', letterSpacing: 0.6 }}>
+                    wishlist chat
+                  </div>
+                  <div style={{ marginTop: 4, color: 'var(--ink)', fontWeight: 800, lineHeight: 1.35, fontSize: 13 }}>
+                    {msg}
+                  </div>
+                </div>
+              ))
+            )}
           </div>
 
           <div style={{ marginTop: 12, display: 'flex', gap: 10 }}>
@@ -225,6 +279,7 @@ export default function GiftChatWidget() {
               Got it
             </button>
           </div>
+
         </div>
       ) : null}
     </div>

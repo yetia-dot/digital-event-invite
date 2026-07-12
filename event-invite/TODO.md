@@ -12,4 +12,8 @@
   - [x] Add wishlist cards: image, name, price range, Reserve button, Details modal w/ description + links
   - [ ] Add wishlist cards: image, name, price range, Reserve button, Details modal w/ description + links
 
+- [ ] GiftChatWidget improvements
+  - [x] Add “a few more seconds” delay between consecutive message notifications
+  - [x] Clicking chat icon opens chat history containing all previous notification messages
+
 
