@@ -48,11 +48,11 @@ export default function Hero() {
     >
       <div className="max-w-3xl mx-auto z-10 flex flex-col items-center">
         {/* Elegant Eyebrow Group */}
-        <div className="flex items-center gap-4 mb-6 animate-fade-in">
+        <div className="flex items-center gap-2 mb-4 animate-fade-in">
           <span className="text-xs uppercase tracking-[0.25em] text-[#C9A227] font-medium">
             The Celebration
           </span>
-          <span className="h-[1px] w-12 bg-[#C9A227]/50 inline-block" />
+          <span className="h-[1px] w-8 bg-[#C9A227]/50 inline-block" />
           <span className="text-xs uppercase tracking-[0.25em] text-stone-300 font-light">
             Invitation
           </span>
@@ -62,10 +62,13 @@ export default function Hero() {
         <h1 className="font-serif text-4xl md:text-6xl text-[#F9F6F0] tracking-wide leading-tight mb-2 font-light">
           Yetnayet&apos;s Graduation
         </h1>
+        <p className="font-serif italic text-lg md:text-xl text-stone-300 tracking-wide font-light mb-2">
+          Bachelor of Science in Software Engineering
+        </p>
         <p className="font-serif italic text-lg md:text-xl text-stone-300 tracking-wide font-light mb-8">
           Class of 2026
         </p>
-
+        
         {/* Date & Location Grid */}
         <div className="w-full max-w-lg border-y border-stone-200/10 py-6 my-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-stone-200/10">
           <div className="flex flex-col justify-center py-2 md:py-0">
@@ -77,7 +80,7 @@ export default function Hero() {
           <div className="flex flex-col justify-center py-2 md:py-0">
             <span className="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Where</span>
             <span className="text-sm uppercase font-semibold tracking-wider text-[#F9F6F0]">
-              Addis Ababa, Ethiopia
+              Summit, Cambrige Academy
             </span>
           </div>
         </div>

@@ -16,7 +16,7 @@ export default function Navbar() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 12,
+          gap: 2,
         }}
       >
         <nav style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>

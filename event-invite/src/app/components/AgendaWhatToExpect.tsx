@@ -23,7 +23,7 @@ const agendaData: AgendaItem[] = [
   {
     time: '9:00 LT',
     title: 'Graduation & Cake Ceremony',
-    description: 'The main event! Toasting to the journey, cutting the cake, and brief special remarks.',
+    description: 'The main event! Toasting to the journey, cutting the cake.',
     image: 'https://picsum.photos/seed/cake/800/600',
   },
   {
@@ -35,7 +35,7 @@ const agendaData: AgendaItem[] = [
   {
     time: '11:00 LT - Late',
     title: 'Music & Dance',
-    description: 'Letting loose and celebrating into the night with great music and unmatched energy.',
+    description: 'Letting loose and celebrating into the night with great music and energy.',
     image: 'https://picsum.photos/seed/dance/800/600',
   },
 ]
