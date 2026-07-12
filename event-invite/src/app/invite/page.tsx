@@ -2,8 +2,10 @@
 
 import { useMemo, useState } from 'react'
 import { submitRsvpToGoogleSheets } from './actions'
+import Navbar from '../components/Navbar'
 
 const GOOGLE_MAPS_LOCATION_URL = 'https://www.google.com/maps?q=8.999247,38.840951'
+
 
 function formatPhoneInput(v: string) {
   return v
@@ -77,54 +79,8 @@ export default function PublicInvitePage() {
   return (
     <main className="min-h-screen py-10 px-4">
       <div className="max-w-6xl mx-auto space-y-8">
-        {/* NAV */}
-        <header className="sticky top-0 z-50">
-          <div
-            className="card-soft"
-            style={{
-              padding: 10,
-              position: 'sticky',
-              top: 12,
-              backdropFilter: 'blur(8px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 12,
-            }}
-          >
-            <div
-              className="mono"
-              style={{ fontSize: 12, color: 'var(--brass-light)', fontWeight: 800 }}
-            >
-              <span style={{ color: 'var(--ink)' }}>The Event</span> ·{' '}
-              <span style={{ color: 'var(--maroon)' }}>’26</span>
-            </div>
-            <nav style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a
-                className="btn ghost"
-                href="/invite"
-                style={{ padding: '10px 16px', borderRadius: 999 }}
-              >
-                Invite
-              </a>
-              <a
-                className="btn ghost"
-                href="/portfolio"
-                style={{ padding: '10px 16px', borderRadius: 999 }}
-              >
-                Portfolio
-              </a>
-              <a
-                className="btn ghost"
-                href="/gifts"
-                style={{ padding: '10px 16px', borderRadius: 999 }}
-              >
-                Gifts
-              </a>
-            </nav>
-          </div>
-        </header>
+        <Navbar />
+
 
         {/* HERO / EVENT DETAILS */}
         <section
