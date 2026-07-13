@@ -62,3 +62,83 @@ export async function submitRsvpToGoogleSheets(input: RsvpInput) {
   }
 }
 
+export type RsvpCounts = {
+  peopleComing: number
+  giftsReserved: number
+}
+
+export type RsvpNamesResponse = {
+  ok: true
+  peopleComingNames: string[]
+} | null
+
+export async function getRsvpNamesFromGoogleSheets(): Promise<string[]> {
+  const url = process.env.GOOGLE_SHEETS_APPS_SCRIPT_URL
+  if (!url) return []
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'rsvp_names' }),
+    })
+
+    const data = (await res.json().catch(() => null)) as
+      | { ok?: unknown; peopleComingNames?: unknown }
+      | null
+
+    if (!res.ok || !data || data.ok !== true) return []
+
+    const namesRaw = Array.isArray(data.peopleComingNames) ? data.peopleComingNames : []
+
+    return namesRaw
+      .map((n) => (typeof n === 'string' ? n.trim() : ''))
+      .filter(Boolean)
+  } catch {
+    return []
+  }
+}
+
+export async function getRsvpCountsFromGoogleSheets(): Promise<RsvpCounts> {
+  const url = process.env.GOOGLE_SHEETS_APPS_SCRIPT_URL
+  if (!url) {
+    return {
+      peopleComing: 0,
+      giftsReserved: 0,
+    }
+  }
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'rsvp_counts' }),
+    })
+
+    const data = await res.json().catch(() => null)
+
+    if (!res.ok) {
+      return { peopleComing: 0, giftsReserved: 0 }
+    }
+
+    // Expected shape: { ok: true, peopleComing: number, giftsReserved: number }
+    if (!data || data.ok !== true) {
+      return { peopleComing: 0, giftsReserved: 0 }
+    }
+
+    const peopleComing = Number(data.peopleComing ?? 0)
+    const giftsReserved = Number(data.giftsReserved ?? 0)
+
+    return {
+      peopleComing: Number.isFinite(peopleComing) ? peopleComing : 0,
+      giftsReserved: Number.isFinite(giftsReserved) ? giftsReserved : 0,
+    }
+  } catch {
+    return { peopleComing: 0, giftsReserved: 0 }
+  }
+}
+
+
+
+
+

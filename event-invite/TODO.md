@@ -1,5 +1,6 @@
 # TODO
 
-- [ ] Replace `event-invite/src/app/invite/page.tsx` code content with the code from `event-invite/src/app/page.tsx` (landing page).
-- [ ] Run typecheck/lint/build to ensure no TS/React issues.
+- [x] Fix hydration mismatch in Hero countdown by preventing time-dependent rendering during SSR.
+- [ ] Re-run Next dev server and verify hydration warning disappears.
+
 
