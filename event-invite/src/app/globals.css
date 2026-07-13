@@ -2,34 +2,46 @@
 
 :root {
   /* ============================= THEME INSPIRATION PALETTE ============================= */
-  /* The deep emerald arch green */
-  --ink: #04140e;
-  --ink-soft: #2e6c52; 
-  --ink-line: rgba(13, 68, 45, 0.12);
+  /* Theme palette (single-source of truth) */
 
-  /* The warm, premium curtain cream tones */
-  --background: #faf8f1;       /* Warm parchment backdrop canvas */
-  --bg-parchment: #faf8f1;    /* Alias for explicit layouts */
-  --parchment-2: #EFE9D9;     /* Slightly deeper cream for transitions/hover states */
-  --ivory: #FAF7F0;           /* Crisp clean white for high contrast surfaces */
-  --surface-card: #FAF7F0;
-  
-  /* Luminous golden neon sign tones */
-  --brass: #E5B23E;           
-  --brass-neon: #E5B23E;      
-  --brass-light: #F1CD78;     /* Softer glow variant for dark backgrounds */
-  --brass-glow: rgba(229, 178, 62, 0.2);
+  --primary: #386150;      /* 386150 */
+  --secondary: #B57F50;    /* B57F50 */
+  --background: #000000;   /* 000000 */
+  --accent: #C2CFB2;      /* C2CFB2 */
+  --accent2: #E4E3D3;     /* E4E3D3 */
 
-  /* Functional Fallbacks & Accent States */
-  --foreground: #04140e;      /* Default text inherits the rich emerald ink */
-  --maroon: #A82C2C;
-  --maroon-light: #C44B4B;
-  --sage: #2e6c52;
-  --muted: #8A8478;
-  --muted-dark: #555A52;      /* Clear reading contrast on cream backgrounds */
+  /* Semantic aliases for the existing CSS */
+  --ink: var(--primary);
+  --ink-soft: #4b7a66;
+  --ink-line: rgba(56, 97, 80, 0.22);
+
+  --foreground: var(--accent2);
+
+  /* Surfaces */
+  --ivory: var(--accent2);
+  --surface-card: var(--accent2);
+
+  /* Background layers */
+  --bg-parchment: var(--accent2);
+  --parchment-2: rgba(228, 227, 211, 0.86);
+
+  /* Accents */
+  --brass: var(--secondary);
+  --brass-neon: var(--secondary);
+  --brass-light: var(--accent);
+  --brass-glow: rgba(181, 127, 80, 0.22);
+
+  --muted: rgba(228, 227, 211, 0.78);
+  --muted-dark: rgba(194, 207, 178, 0.95);
+
+  /* Status */
+  --maroon: var(--secondary);
+  --maroon-light: #c08e68;
+  --sage: var(--primary);
 
   --radius: 4px;
-  --shadow: 0 18px 40px rgba(13, 68, 45, 0.12);
+  --shadow: 0 18px 40px rgba(56, 97, 80, 0.18);
+
   --ease: cubic-bezier(.22, .61, .36, 1);
 }
 
@@ -43,14 +55,21 @@
 /* Force dark-mode to behave elegantly within the luxury cream-and-emerald palette */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #FAF7F0;      /* White background in dark mode */
-    --foreground: #faf8f1;      /* Cream text */
-    --surface-card: #04140e;    /* Emerald surface blocks */
-    --ink-line: rgba(249, 246, 238, 0.15);
-    --muted-dark: #C9D3C4;
-    --background: #072518;      /* Updated dark mode background */
+    /* Swap for dark mode (color theory: dark primary as ink, light accents for text) */
+    --background: var(--primary);
+    --foreground: var(--accent2);
+
+    --surface-card: var(--accent2);
+
+    --ink-line: rgba(194, 207, 178, 0.18);
+    --muted-dark: rgba(228, 227, 211, 0.92);
+
+    /* Keep semantic aliases consistent */
+    --parchment-2: rgba(228, 227, 211, 0.12);
+    --muted: rgba(228, 227, 211, 0.65);
   }
 }
+
 
 body {
   background: var(--background);
@@ -100,7 +119,8 @@ body {
   position: relative;
   min-height: 56vh;
   /* Dark emerald visual weight balancing the background image */
-  background: linear-gradient(180deg, rgba(13, 68, 45, 0.55), rgba(13, 68, 45, 0.88)), var(--hero-img) center/cover;
+  background: linear-gradient(180deg, rgba(56, 97, 80, 0.55), rgba(56, 97, 80, 0.88)), var(--hero-img) center/cover;
+
   background-color: var(--ink);
   color: var(--ivory);
   display: flex;
@@ -108,7 +128,9 @@ body {
   justify-content: flex-end;
   padding: 64px 24px 40px;
   border-radius: 18px;
-  box-shadow: 0 20px 40px -15px rgba(13, 68, 45, 0.25);
+  box-shadow: 0 20px 40px -15px rgba(56, 97, 80, 0.25);
+
+
 }
 
 .hero-content { max-width: 920px; margin: 0 auto; width: 100%; }
@@ -159,9 +181,11 @@ body {
 }
 .card-soft {
   background: var(--surface-card);
-  border: 1px solid rgba(13, 68, 45, 0.08);
+  border: 1px solid rgba(56, 97, 80, 0.08);
+
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(13, 68, 45, 0.05);
+  box-shadow: 0 10px 30px rgba(56, 97, 80, 0.05);
+
 }
 
 /* Agenda Timeline */
@@ -196,7 +220,8 @@ body {
 .field.full { grid-column: 1/-1; }
 .field label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); font-weight: 600; }
 .field input, .field select, .field textarea {
-  border: 1px solid rgba(13, 68, 45, 0.18);
+  border: 1px solid rgba(56, 97, 80, 0.18);
+
   background: #fff;
   border-radius: var(--radius);
   padding: 11px 13px;
@@ -230,7 +255,8 @@ body {
 .btn:hover {
   background: var(--ink-soft);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(13, 68, 45, 0.15);
+  box-shadow: 0 4px 12px rgba(56, 97, 80, 0.15);
+
 }
 .btn:disabled {
   background: #b9b2a5;

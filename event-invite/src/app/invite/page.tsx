@@ -10,7 +10,7 @@ import Portfolio from '../components/Portfolio'
 
 export default function Home() {
   return (
-    <main className="min-h-screen px-4" style={{ paddingTop: 0 }}>
+    <main className="min-h-screen px-4" style={{ paddingTop: 0, backgroundColor: 'var(--bg-parchment)' }}>
       <div className="max-w-6xl mx-auto space-y-2">
         <Navbar />
         <Hero />

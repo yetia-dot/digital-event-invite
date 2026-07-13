@@ -86,7 +86,7 @@ export default function PortfolioPage() {
   }, [])
 
   return (
-    <main className="min-h-screen py-10 px-4">
+    <main className="min-h-screen py-10 px-4" style={{ backgroundColor: 'var(--bg-parchment)' }}>
       <div className="max-w-6xl mx-auto space-y-8">
         <Navbar />
 
@@ -111,7 +111,7 @@ export default function PortfolioPage() {
               style={{
                 marginTop: 22,
                 padding: 18,
-                background: 'rgba(255,255,255,0.58)',
+                background: 'var(--surface-card)',
               }}
             >
               <div
@@ -127,15 +127,16 @@ export default function PortfolioPage() {
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 12, alignItems: 'center' }}>
                 <a className="btn" href={`mailto:${LINKS.email}?subject=Portfolio%20hello`} style={{ background: 'var(--maroon)' }}>
                   Email me
+
                   <span aria-hidden>→</span>
                 </a>
-                <a className="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer">
+                <a className="btn ghost" href={LINKS.linkedin} target="_blank" rel="noreferrer" style={{ color: 'var(--brass-neon)' }}>
                   LinkedIn
                 </a>
-                <a className="btn ghost" href={LINKS.github} target="_blank" rel="noreferrer">
+                <a className="btn ghost" href={LINKS.github} target="_blank" rel="noreferrer" style={{ color: 'var(--brass-neon)' }}>
                   GitHub
                 </a>
-                <a className="btn ghost" href={LINKS.jami} target="_blank" rel="noreferrer">
+                <a className="btn ghost" href={LINKS.jami} target="_blank" rel="noreferrer" style={{ color: 'var(--brass-neon)' }}>
                   More links
                 </a>
               </div>
@@ -208,10 +209,12 @@ export default function PortfolioPage() {
                 <a className="btn" href="#software" data-scroll style={{ background: 'var(--ink)' }}>
                   Software Engineering
                 </a>
-                <a className="btn" href="#content" data-scroll style={{ background: 'rgba(168,44,44,0.95)' }}>
+                <a className="btn" href="#content" data-scroll style={{ background: 'var(--maroon)' }}>
+
                   Content &amp; Social
                 </a>
-                <a className="btn" href="#games" data-scroll style={{ background: 'rgba(11,110,79,0.95)' }}>
+                <a className="btn" href="#games" data-scroll style={{ background: 'var(--sage)' }}>
+
                   Game Development
                 </a>
                 <a className="btn" href="#awards" data-scroll style={{ background: 'var(--brass)' }}>
@@ -404,7 +407,7 @@ export default function PortfolioPage() {
                 { k: 'IELTS', v: 'Band 7.5 (Speaking 8.0) — British Council' },
                 { k: 'Silver Award', v: "International Queen's Commonwealth Essay Competition — 2021" },
               ].map((a) => (
-                <div key={a.k} style={{ padding: 16, borderRadius: 14, border: '1px solid var(--ink-line)', background: 'rgba(255,255,255,0.45)' }}>
+                <div key={a.k} style={{ padding: 16, borderRadius: 14, border: '1px solid var(--ink-line)', background: 'var(--surface-card)' }}>
                   <div className="mono" style={{ fontSize: 12, fontWeight: 900, color: 'var(--brass-light)' }}>
                     {a.k}
                   </div>
