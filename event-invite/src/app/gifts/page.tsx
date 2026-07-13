@@ -4,96 +4,8 @@ import { useMemo, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Modal from '../components/Modal'
 import GiftChatWidget from '../components/GiftChatWidget'
-
-type WishlistItem = {
-  id: string
-  name: string
-  priceRange: string
-  imageUrl: string
-  description: string
-  links: { label: string; href: string }[]
-}
-
-const WISHLIST: WishlistItem[] = [
-  {
-    id: 'i1',
-    name: 'Personalized keepsake mug',
-    priceRange: '$12–$25',
-    imageUrl: 'https://picsum.photos/seed/keepsake-mug/800/600',
-    description:
-      'A cozy daily reminder—perfect for sipping something warm while thinking about you.',
-    links: [
-      { label: 'Find on Etsy', href: 'https://www.etsy.com/' },
-      { label: 'Buy on Amazon', href: 'https://www.amazon.com/' },
-      { label: 'Local gift shop', href: 'https://www.google.com/maps' },
-    ],
-  },
-  {
-    id: 'i2',
-    name: 'Memory photo frame (instant-ready)',
-    priceRange: '$18–$40',
-    imageUrl: 'https://picsum.photos/seed/photo-frame/800/600',
-    description:
-      'A frame I can actually use right away—so your gift doesn’t just sit, it shows.',
-    links: [
-      { label: 'Photo frames on Etsy', href: 'https://www.etsy.com/' },
-      { label: 'Photo frames on Amazon', href: 'https://www.amazon.com/' },
-      { label: 'Local stationary stores', href: 'https://www.google.com/maps' },
-    ],
-  },
-  {
-    id: 'i3',
-    name: 'Soft-back journal + pen set',
-    priceRange: '$10–$30',
-    imageUrl: 'https://picsum.photos/seed/journal/800/600',
-    description:
-      'For capturing notes, plans, and little moments—something I’ll keep using long after the celebration.',
-    links: [
-      { label: 'Journals on Amazon', href: 'https://www.amazon.com/' },
-      { label: 'Journals on Barnes & Noble', href: 'https://www.barnesandnoble.com/' },
-      { label: 'Local bookstore', href: 'https://www.google.com/maps' },
-    ],
-  },
-  {
-    id: 'i4',
-    name: 'Cozy hoodie (my “always on” favorite)',
-    priceRange: '$25–$60',
-    imageUrl: 'https://picsum.photos/seed/hoodie/800/600',
-    description:
-      'Something wearable—because gifts should be useful too. I promise I’ll actually wear it.',
-    links: [
-      { label: 'Shop hoodies (Amazon)', href: 'https://www.amazon.com/' },
-      { label: 'Shop hoodies (Zara)', href: 'https://www.zara.com/' },
-      { label: 'Local clothing store', href: 'https://www.google.com/maps' },
-    ],
-  },
-  {
-    id: 'i5',
-    name: 'Desk mini lamp (warm light)',
-    priceRange: '$15–$35',
-    imageUrl: 'https://picsum.photos/seed/desk-lamp/800/600',
-    description:
-      'A small upgrade that makes my space feel calmer and more “me”. Warm light always wins.',
-    links: [
-      { label: 'Desk lamps on Amazon', href: 'https://www.amazon.com/' },
-      { label: 'Home decor stores', href: 'https://www.google.com/maps' },
-      { label: 'Lighting on IKEA', href: 'https://www.ikea.com/' },
-    ],
-  },
-  {
-    id: 'i6',
-    name: 'Reusable water bottle (stays cold)',
-    priceRange: '$18–$45',
-    imageUrl: 'https://picsum.photos/seed/bottle/800/600',
-    description:
-      'For long days and quick errands—something practical I’ll keep using every week.',
-    links: [
-      { label: 'Hydro bottles (Amazon)', href: 'https://www.amazon.com/' },
-      { label: 'Stainless bottles (Target)', href: 'https://www.target.com/' },
-      { label: 'Local supermarket', href: 'https://www.google.com/maps' },
-    ],
-  },
-]
+import GiftWishlistCard from '../components/GiftWishlistCard'
+import { WISHLIST } from '../../lib/giftWishlist'
 
 export default function GiftsPage() {
   const heroImg = useMemo(() => 'https://picsum.photos/seed/gift-ideas-hero/1600/900', [])
@@ -107,110 +19,87 @@ export default function GiftsPage() {
   }
 
   return (
-    <main className="min-h-screen py-10 px-4">
-      <div className="max-w-6xl mx-auto space-y-8">
+    /* 1. Page Background matches the cream curtains */
+    <main className="min-h-screen px-4 pb-12" style={{ backgroundColor: 'var(--bg-parchment)' }}>
+      <div className="max-w-6xl mx-auto space-y-6 pt-4">
         <Navbar />
 
+        {/* 2. Hero Section: Rich emerald green base with luminous brass text */}
         <section
           className="hero"
           style={{
             '--hero-img': `url('${heroImg}')`,
+            backgroundColor: 'var(--ink)',
+            backgroundImage: `linear-gradient(to bottom, rgba(13, 68, 45, 0.6), rgba(13, 68, 45, 0.9)), url('${heroImg}')`,
+            boxShadow: '0 20px 40px -15px rgba(13, 68, 45, 0.25)'
           } as React.CSSProperties}
         >
           <div className="hero-content">
-            <div className="eyebrow">gift ideas</div>
-            <h1 className="hx">gift ideas</h1>
-            <p className="hero-sub">
-              Pick and reserve something from my wishlist—then open <b>Details</b> for helpful links.
+            <div className="eyebrow" style={{ color: 'var(--brass-neon)', textShadow: '0 0 10px var(--brass-glow)' }}>
+              A small wishlist
+            </div>
+            <h1 className="hx" style={{ color: 'var(--ivory)', fontFamily: 'Fraunces, serif' }}>
+              gift ideas
+            </h1>
+            <p className="hero-sub" style={{ color: 'var(--parchment-2)', opacity: 0.9 }}>
+                    Your presence is truly the only gift I need. But a few of you have asked what I could use right now, so here&apos;s a short list. Once someone reserves an item, it&apos;s marked as taken so we don&apos;t end up with five of the same thing.
+
+
             </p>
           </div>
         </section>
 
-        <section>
+        {/* 3. Main Grid Area */}
+        <section className="space-y-4">
           <div className="section-head">
-            <div className="eyebrow">wishlist items</div>
-            <h2 className="hx">Browse & reserve</h2>
+            <div className="eyebrow" style={{ color: 'var(--ink-soft)' }}>wishlist items</div>
+            <h2 className="hx" style={{ color: 'var(--ink)' }}>Browse & reserve</h2>
           </div>
 
-          <div className="card-soft" style={{ padding: 24 }}>
+          <div 
+            className="card-soft" 
+            style={{ 
+              padding: 28, 
+              backgroundColor: 'var(--surface-card)', 
+              borderRadius: '16px',
+              border: '1px solid rgba(13, 68, 45, 0.06)'
+            }}
+          >
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-                gap: 16,
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                gap: 20,
               }}
             >
               {WISHLIST.map((item) => {
                 const reserved = reservedIds.includes(item.id)
                 return (
-                  <div
+                  <GiftWishlistCard
                     key={item.id}
-                    className="card-soft"
-                    style={{
-                      padding: 16,
-                      background: 'rgba(255,255,255,0.55)',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    <div
-                      style={{
-                        height: 170,
-                        borderRadius: 12,
-                        overflow: 'hidden',
-                        border: '1px solid rgba(18,24,27,0.08)',
-                        background: 'rgba(255,255,255,0.4)',
-                      }}
-                    >
-                      <img
-                        src={item.imageUrl}
-                        alt={item.name}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                      />
-                    </div>
-
-                    <div style={{ marginTop: 12 }}>
-                      <div className="mono" style={{ fontSize: 12, color: 'var(--brass-light)', fontWeight: 900 }}>
-                        {reserved ? 'Reserved' : 'Available'}
-                      </div>
-                      <div className="hx" style={{ fontSize: 20, marginTop: 6, lineHeight: 1.15 }}>
-                        {item.name}
-                      </div>
-                      <div style={{ marginTop: 8, color: 'var(--muted-dark)', fontWeight: 800 }}>
-                        {item.priceRange}
-                      </div>
-
-                      <div style={{ display: 'flex', gap: 10, marginTop: 14, flexWrap: 'wrap' }}>
-                        <button
-                          className={reserved ? 'btn ghost' : 'btn'}
-                          disabled={reserved}
-                          onClick={() => reserveItem(item.id)}
-                          style={{ padding: '10px 16px', borderRadius: 999, flex: '1 1 auto', justifyContent: 'center' }}
-                        >
-                          {reserved ? 'Reserved' : 'Reserve'}
-                        </button>
-
-                        <button
-                          className="btn ghost"
-                          onClick={() => setActiveId(item.id)}
-                          style={{ padding: '10px 16px', borderRadius: 999, flex: '1 1 auto', justifyContent: 'center' }}
-                        >
-                          Details
-                        </button>
-                      </div>
-
-                      <div style={{ marginTop: 12, color: 'var(--muted-dark)', fontSize: 13, lineHeight: 1.6 }}>
-                        {reserved
-                          ? 'Someone already reserved this one—pick another to avoid repeats.'
-                          : 'Tap Reserve to claim it for your turn.'}
-                      </div>
-                    </div>
-                  </div>
+                    item={item}
+                    reserved={reserved}
+                    onReserve={() => reserveItem(item.id)}
+                    onDetails={() => setActiveId(item.id)}
+                  />
                 )
               })}
             </div>
 
-            <div style={{ marginTop: 18, display: 'flex', justifyContent: 'center' }}>
-              <a className="btn" href="/event">
+            {/* 4. Action Button: Emerald structure with a crisp clean hover feel */}
+            <div style={{ marginTop: 32, display: 'flex', justifyContent: 'center' }}>
+              <a 
+                className="btn" 
+                href="/event"
+                style={{
+                  backgroundColor: 'var(--ink)',
+                  color: 'var(--ivory)',
+                  padding: '12px 28px',
+                  borderRadius: '999px',
+                  boxShadow: '0 4px 14px rgba(13, 68, 45, 0.2)',
+                  fontWeight: 600
+                }}
+              >
                 Back to Event details
                 <span aria-hidden>→</span>
               </a>
@@ -220,6 +109,7 @@ export default function GiftsPage() {
 
         <GiftChatWidget />
 
+        {/* Modal content adjustments */}
         <Modal
           open={!!activeItem}
           title={activeItem ? activeItem.name : 'Details'}
@@ -227,26 +117,34 @@ export default function GiftsPage() {
         >
           {activeItem ? (
             <div>
-              <p style={{ margin: 0, color: 'var(--muted-dark)', lineHeight: 1.7, fontWeight: 700 }}>
+              <p style={{ margin: 0, color: 'var(--muted-dark)', lineHeight: 1.7 }}>
                 {activeItem.description}
               </p>
 
-              <div style={{ marginTop: 14 }}>
-                <div className="mono" style={{ fontSize: 12, color: 'var(--brass-light)', fontWeight: 900 }}>
+              <div style={{ marginTop: 20 }}>
+                <div className="mono" style={{ fontSize: 11, color: 'var(--ink-soft)', fontWeight: 700, textTransform: 'uppercase' }}>
                   Where to find it
                 </div>
                 <div style={{ marginTop: 10, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                   {activeItem.links.map((l) => (
                     <a
                       key={l.href}
-                      className="btn ghost"
+                      className="btn"
                       href={l.href}
                       target="_blank"
                       rel="noreferrer"
-                      style={{ padding: '10px 16px', borderRadius: 999 }}
+                      style={{ 
+                        padding: '8px 18px', 
+                        borderRadius: 999,
+                        backgroundColor: 'var(--bg-parchment)',
+                        color: 'var(--ink)',
+                        fontSize: '13px',
+                        border: '1px solid rgba(13, 68, 45, 0.1)',
+                        fontWeight: 600
+                      }}
                     >
                       {l.label}
-                      <span aria-hidden>↗</span>
+                      <span aria-hidden style={{ color: 'var(--brass-neon)', marginLeft: 4 }}>↗</span>
                     </a>
                   ))}
                 </div>
@@ -258,5 +156,3 @@ export default function GiftsPage() {
     </main>
   )
 }
-
-

@@ -39,7 +39,7 @@ export default function Hero() {
 
   return (
     <section
-      className="hero relative min-h-[85vh] flex items-center justify-center overflow-hidden rounded-2xl text-center px-4"
+      className="hero relative min-h-[85vh] flex items-center justify-center overflow-hidden rounded-2xl text-center"
       style={{
         backgroundImage: `linear-gradient(to bottom, rgba(30, 30, 28, 0.4), rgba(20, 20, 18, 0.75)), url('https://picsum.photos/seed/landing-hero/1600/900')`,
         backgroundSize: 'cover',
